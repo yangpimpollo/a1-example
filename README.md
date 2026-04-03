@@ -197,3 +197,43 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
 ```
 
 <img src="res/res2.png" width="100%" style="float: left; margin-right: 100px;">
+
+## E. creamos un seed de usuarios
+1. creamos una clase seed `php artisan make:seeder UserSeeder`
+2. editamos UserSeeder
+3. registrmos el seeder en `database/seeders/DatabaseSeeder.php`
+4. remigramos porsi acaso `php artisan migrate:refresh --seed`
+5. se puede por `php artisan db:seed` o `php artisan db:seed --class=UserSeeder`
+
+```php
+    private function formatName($name) { return ucfirst($name); }
+    private function get_email($name) { return $name . "@zoo.com"; }
+    private function rand_phone() { return str_pad(rand(100000000, 999999999), 9, '0'); }
+    private function get_avatar_path($name) { return "all_avatar/" . $name . "-avatar.png"; }
+
+    public function run(): void
+    {
+        $users = ['alex', 'marty', 'gloria', 'melman', 
+                  'skipper', 'rico', 'kowalski', 'cabo', 
+                  'julien', 'mort', 'mason', 'maurice'];
+
+        foreach ($users as $username) {
+            User::create([
+                'name'      => $this->formatName($username),
+                'username'  => $username,
+                'email'     => $this->get_email($username),
+                'password'  => Hash::make('123'),
+                'role'      => 'cliente',
+                'phone'     => $this->rand_phone(),
+                'avatar'    => $this->get_avatar_path($username),
+            ]);
+        }
+    }
+
+//--------------------------------------------------------------------------------
+
+    public function run(): void
+    {
+        $this->call([ UserSeeder::class, ]);   // en DatabaseSeeder.php
+    }
+```
