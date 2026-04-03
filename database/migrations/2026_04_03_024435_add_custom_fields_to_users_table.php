@@ -11,7 +11,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('username')->unique()->after('name'); 
             $table->enum('role', ['admin', 'editor', 'cliente'])->default('cliente')->after('password');
-            $table->string('avatar')->nullable()->after('role');
+            $table->string('avatar')->default('all_avatar/default-avatar.png')->nullable()->after('role');
             $table->string('phone', 9)->nullable()->after('email');
         });
     }

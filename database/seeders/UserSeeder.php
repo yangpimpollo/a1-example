@@ -21,6 +21,16 @@ class UserSeeder extends Seeder
 
     public function run(): void
     {
+        User::create([
+            'name'      => 'Nobody',
+            'username'  => 'admin',
+            'email'     => $this->get_email('admin'),
+            'password'  => Hash::make('123'),
+            'role'      => 'admin',
+            'phone'     => $this->rand_phone(),
+        ]);
+
+
         $users = ['alex', 'marty', 'gloria', 'melman', 
                   'skipper', 'rico', 'kowalski', 'cabo', 
                   'julien', 'mort', 'mason', 'maurice'];
