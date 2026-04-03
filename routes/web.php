@@ -9,7 +9,7 @@ Route::get('/', function () { return view('welcome'); });
 Route::get('login', function () { return view('login'); })->name('login');
 
 Route::post('login', function (Request $request) {
-    $credentials = $request->only('email', 'password');
+    $credentials = $request->only('username', 'password');
 
     if (Auth::attempt($credentials)) {
         $request->session()->regenerate();

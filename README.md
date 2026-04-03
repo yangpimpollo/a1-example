@@ -137,5 +137,63 @@ return back()->withErrors([' ..error name.. ' => 'Invalid credentials']);
 
 <img src="res/res1.png" width="100%" style="float: left; margin-right: 100px;">
 
-## C. agregar columnas a usuario inicio de sesion con username
-1. agregaremos a la tabla usuario
+## D. agregar columnas a usuario inicio de sesion con username
+1. agregaremos a la tabla users `username`, `role`, `avatar`, `phone` con una nueba migración                          
+generamos la migración con  `php artisan make:migration add_custom_fields_to_users_table --table=users`
+2. modificamos la tabla y luego migramos `php artisan migrate` y no da por los datos anteriores las borramos con            
+`php artisan migrate:fresh` borrara todo y migrara las tablas
+3. modificamos el fillable de user `#[Fillable(['name', 'email', 'password', 'username', 'role', 'avatar', 'phone'])]`
+4. modificamos `$credentials = $request->only('username', 'password');` ojo que se deberia configura en el request si es que lo tuviera por el momento lo hacemos de la manera más simple.
+5. modificamos los view que tengan campo email podemos ver BD con `php artisan db:show` y `php artisan db:table users`
+6. agregamos una carpeta en `storage/app/public/all_avatar` donde pondremos los avatares
+7. agregamos usuarios por `php artisan tinker`
+8. no olvidarse de ejecutar `php artisan storage:link` para que pueda cargarse las imagenes
+```php
+    public function up(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->string('username')->unique()->after('name'); 
+            $table->enum('role', ['admin', 'editor', 'cliente'])->default('cliente')->after('password');
+            $table->string('avatar')->nullable()->after('role');
+            $table->string('phone', 9)->nullable()->after('email');
+        });
+    }
+
+    public function down(): void
+    {
+        Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn(['username', 'role', 'avatar', 'phone']);
+        });
+    }
+//--------------------------------------------------------------------------------
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
+
+$user1 = User::create([
+    'name'     => 'Alex',
+    'username' => 'alex',
+    'email'    => 'alex@zoo.com',
+    'password' => Hash::make('123'),
+    'role'     => 'cliente',
+    'phone'    => str_pad(rand(100000000, 999999999), 9, '0'),
+    'avatar'   => 'all_avatar/alex-avatar.png',
+]);
+
+// Crear usuario Marty
+$user2 = User::create([
+    'name'     => 'Marty',
+    'username' => 'marty',
+    'email'    => 'marty@zoo.com',
+    'password' => Hash::make('123'),
+    'role'     => 'cliente',
+    'phone'    => str_pad(rand(100000000, 999999999), 9, '0'), 
+    'avatar'   => 'all_avatar/marty-avatar.png', 
+]);
+
+echo "Usuarios creados correctamente:\n";
+echo "Alex  -> ID: {$user1->id} | Phone: {$user1->phone}\n";
+echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
+```
+
+<img src="res/res2.png" width="100%" style="float: left; margin-right: 100px;">
