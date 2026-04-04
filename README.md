@@ -238,4 +238,7 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
     }
 ```
 
-## F. editamos usuarios
+## F. editamos usuarios y cambiamos contraseña
+1. actualizamos nuestro view
+2. añadimos en el enrutador
+<img src="res/res3.png" width="100%" style="float: left; margin-right: 100px;">

@@ -40,6 +40,20 @@
         <label><strong>Phone:</strong></label><br>
         <input type="tel" name="phone" value="{{ old('phone', Auth::user()->phone) }}" style="width: 100%; padding: 8px; margin-bottom: 15px;"><br>
 
+        <!-- Cambiar Contraseña -->
+        <h3 style="margin-top: 30px;">Cambiar Contraseña</h3>
+        <p style="font-size: 14px; color: #666;">Deja estos campos en blanco si no quieres cambiar la contraseña</p>
+
+        <label><strong>Contraseña Actual:</strong></label><br>
+        <input type="password" name="current_pass" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+
+        <label><strong>Nueva Contraseña:</strong></label><br>
+        <input type="password" name="password" style="width:100%; padding:8px; margin-bottom:10px;"><br>
+
+        <label><strong>Confirmar Nueva Contraseña:</strong></label><br>
+        <input type="password" name="password_confirmation" style="width:100%; padding:8px; margin-bottom:20px;"><br>
+
+
         <p><strong>Role:</strong> <span style="text-transform: capitalize;">{{ Auth::user()->role }}</span></p>
         <p><strong>Joined:</strong> {{ Auth::user()->created_at->format('d/m/Y') }}</p>
 

@@ -48,6 +48,8 @@ Route::middleware(['auth'])->group(function () {
                 'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
                 'phone'    => 'nullable|string|size:9|regex:/^[0-9]+$/',
                 'avatar'   => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+                'current_pass'  => 'nullable|required_with:password|current_password',
+                'password' => 'nullable|confirmed',
             ]);
 
             // Actualizar datos
@@ -68,6 +70,8 @@ Route::middleware(['auth'])->group(function () {
                 $path = $request->file('avatar')->store('all_avatar', 'public');
                 $user->avatar = $path;
             }
+
+            if ($request->filled('password')) { $user->password = Hash::make($request->password); }
 
             $user->save();
 
