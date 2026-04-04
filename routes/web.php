@@ -28,9 +28,58 @@ Route::post('logout', function (Request $request) {
     return redirect('/login'); // 4. Redirects to the login page
 })->name('logout');
 
+
+
+
+
+
+
 Route::middleware(['auth'])->group(function () {
     Route::get('dashboard', function () {return view('dashboard');});
-    Route::get('profile', function () {return view('profile');})->name('profile');
+    // Route::get('profile', function () {return view('profile');})->name('profile');
+
+    Route::match(['GET', 'POST'], 'profile', function (Request $request) {
+        $user = Auth::user();
+
+        if ($request->isMethod('POST')) {
+            $request->validate([
+                'name'     => 'required|string|max:255',
+                'username' => 'required|string|max:255|unique:users,username,' . $user->id,
+                'email'    => 'required|email|max:255|unique:users,email,' . $user->id,
+                'phone'    => 'nullable|string|size:9|regex:/^[0-9]+$/',
+                'avatar'   => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            ]);
+
+            // Actualizar datos
+            $user->name     = $request->name;
+            $user->username = $request->username;
+            $user->email    = $request->email;
+            $user->phone    = $request->phone;
+
+            // === Lógica del Avatar ===
+            if ($request->has('remove_avatar') && $request->remove_avatar == '1') {
+                // Eliminar avatar del disco
+                if ($user->avatar) { Storage::disk('public')->delete($user->avatar); }
+                $user->avatar = null;   // quitar de la base de datos
+            }elseif ($request->hasFile('avatar')) {
+                // Eliminar avatar anterior si existe
+                if ($user->avatar) { Storage::disk('public')->delete($user->avatar); }
+                // Guardar nuevo avatar
+                $path = $request->file('avatar')->store('all_avatar', 'public');
+                $user->avatar = $path;
+            }
+
+            $user->save();
+
+            return redirect('profile')->with('success', 'Perfil actualizado correctamente');
+        }
+
+        // Si es GET, mostramos el formulario
+        return view('profile');
+
+    })->name('profile');
+
+
 });
 
 

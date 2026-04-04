@@ -30,6 +30,16 @@ class UserSeeder extends Seeder
             'phone'     => $this->rand_phone(),
         ]);
 
+        User::create([
+            'name'      => 'fake user',
+            'username'  => 'fakeuser',
+            'email'     => $this->get_email('fakeuser'),
+            'password'  => Hash::make('123'),
+            'role'      => 'cliente',
+            'phone'     => $this->rand_phone(),
+            'avatar'    => null,
+        ]);
+
 
         $users = ['alex', 'marty', 'gloria', 'melman', 
                   'skipper', 'rico', 'kowalski', 'cabo', 

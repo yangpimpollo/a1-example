@@ -237,3 +237,5 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
         $this->call([ UserSeeder::class, ]);   // en DatabaseSeeder.php
     }
 ```
+
+## F. editamos usuarios
