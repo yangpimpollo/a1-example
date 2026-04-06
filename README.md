@@ -294,8 +294,8 @@ graph LR
 3. recordar poner `use Illuminate\Database\Eloquent\Attributes\Fillable;` para poner `#[Fillable(['user_id', 'image_path', 'description'])]` o poner `protected $fillable = ['user_id', 'image_path', 'description'];` si no se pone no se podra insertar datos a la BD.
 
 <img src="res/res4.png" width="100%" style="float: left; margin-right: 100px;">
-
-
+2. creamos el perfil de cada usuario y la pagina home
+<img src="res/res5.png" width="100%" style="float: left; margin-right: 100px;">
 
 
 
