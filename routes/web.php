@@ -67,7 +67,10 @@ Route::match(['GET', 'POST'], 'singup', function (Request $request) {
     return view('singup');
 })->name('singup');
 
-
+Route::get('feed/{username}', function ($username) {
+    $user = \App\Models\User::where('username', $username)->with('images')->firstOrFail();
+    return view('feed', compact('user'));
+})->name('feed');
 
 
 

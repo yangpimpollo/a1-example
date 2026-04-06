@@ -307,7 +307,7 @@ falta:
 
 * controlador
 * delete profile
-* home
+* 
 * Cloudflare R2 
 
-* ✅ css, layouts, singup, dashboard, post
+* ✅ css, layouts, singup, dashboard, post, home

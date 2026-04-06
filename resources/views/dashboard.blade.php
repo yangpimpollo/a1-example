@@ -1,5 +1,28 @@
 @extends('components.template')
 
+@push('styles')
+<style>
+    .dashboard-container {
+        max-width: 600px;
+        margin: 50px auto;
+        padding: 30px;
+        background: #e09494;
+        border-radius: 12px;
+        box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        font-family: "Share Tech", sans-serif;
+    }
+    .dashboard-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #333;
+    }
+    .dashboard-container p {
+        text-align: center;
+        color: #666;
+        font-size: 1.1rem;
+    }
+</style>
+@endpush
 
 @section('content')
 

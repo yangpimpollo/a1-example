@@ -9,6 +9,7 @@
         padding: 30px;
         border-radius: 12px;
         box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+        font-family: "Share Tech", sans-serif;
     }
     .post-container h2 { text-align: center; margin-bottom: 20px; color: #333; }
     
