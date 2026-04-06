@@ -1,5 +1,7 @@
-@include('components.user-bar')
+<!-- @include('components.user-bar') -->
+@extends('components.template')
 
+@section('content')
 <div style="padding: 20px; font-family: sans-serif; max-width: 600px; margin: 0 auto;">
 
     <h1>Edit Profile</h1>
@@ -66,3 +68,5 @@
     <a href="/dashboard">← Back to Dashboard</a>
 
 </div>
+
+@endsection

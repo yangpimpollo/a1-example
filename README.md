@@ -242,3 +242,18 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
 1. actualizamos nuestro view
 2. añadimos en el enrutador
 <img src="res/res3.png" width="100%" style="float: left; margin-right: 100px;">
+
+## G. 
+1. para poner nuestros estilos css debemos ponerla en `vite.config.js` y `rm -rf public/build` y `npm run build`❌ 
+ para que corra poner `npm run dev`
+
+falta:
+* controlador
+* layouts
+* create account
+* home
+* dashboard
+* post
+* Cloudflare R2 
+
+* ✅ css

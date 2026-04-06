@@ -1,0 +1,144 @@
+/* h1 {
+    color: blueviolet;
+    font-size: 20px; 
+    font-family: "Coral Pixels", serif;
+    font-weight: 400;
+    font-style: normal;
+} */
+
+.header_inner {
+    background-color: rgb(209, 241, 241);
+    align-items: center;
+    display: flex;
+    height: 108px;
+    justify-content: space-between;
+    margin: 5px auto;
+    padding: 0 40px;
+    max-width: 1400px;
+    position: relative;
+    border-radius: 2px;
+}
+
+.header_left {
+    align-items: center;
+    column-gap: 10px;
+    display: flex;
+}
+
+.header_right {
+    align-items: center;
+    column-gap: 12px;
+    display: flex;
+    /* z-index: 10; */
+}
+
+.btn_logo {
+    display: block;
+    width: 160px; /* Ajusta al ancho de tu logo */
+    height: 80px;
+    background-image: url('../../public/img/btn_logo.png');
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.gnb_menu ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding-left: 20px; /* Espacio entre el logo y el menú */
+}
+
+.gnb_menu ul li a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 0 15px;
+    font-family: "Coral Pixels", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+
+
+
+
+/* Estilo tipo píldora negra (LOG OUT) */
+.header_right form {
+    margin: 0;
+    padding: 0;
+    display: inline-flex; /* Esto ayuda a que el botón se alinee mejor con el texto */
+    align-items: center;
+}
+.btn_logout {
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 8px 20px;
+    border-radius: 50px; /* Bordes muy redondeados */
+    /* font-weight: bold; */
+    font-size: 14px;
+    cursor: pointer;
+    font-family: "Share Tech", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Estilo tipo píldora gris claro (USUARIO) */
+.user_name {
+    background-color: #4471c5;
+    color: #ffffff;
+    padding: 8px 20px;
+    border-radius: 50px;
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "Share Tech", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* Estilo Avatar Circular */
+.user_avatar img {
+    width: 40px;
+    height: 40px;
+    border-radius: 10%; /* Hace la imagen circular */
+    object-fit: cover;
+    border: 0px solid #ddd;
+    display: block;
+}
+
+
+
+.share-tech-regular {
+  font-family: "Share Tech", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+
+
+
+
+
+
+.footer_container {
+    background-color: #1a1a1a; /* Negro suave */
+    color: #999; /* Gris para el texto */
+    padding: 20px 0px 10px 0px;
+    margin: 50px auto 0px auto; /* Separación del contenido principal */
+    font-family: sans-serif;
+    text-align: center;
+    position: relative; 
+    flex-shrink: 0;
+    max-width: 1400px;
+    font-size: 12px;
+    margin: 0;
+    font-family: "Share Tech", sans-serif;
+    border-radius: 2px;
+}
+
+
+
+
