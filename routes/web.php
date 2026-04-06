@@ -3,8 +3,10 @@
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Image;
 
-Route::get('/', function () { return view('welcome'); });
+
+Route::get('/', function () { return view('home'); });
 Route::get('test', function () { return view('test'); })->name('test');
 
 Route::get('login', function () { return view('login'); })->name('login');
@@ -70,8 +72,14 @@ Route::match(['GET', 'POST'], 'singup', function (Request $request) {
 
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('dashboard', function () {return view('dashboard');});
-    // Route::get('profile', function () {return view('profile');})->name('profile');
+    Route::get('dashboard', function () {
+        $images = Image::with(['user', 'comments.user', 'likes'])
+                    ->latest()
+                    ->take(10)
+                    ->get();
+
+        return view('dashboard', compact('images'));
+    })->name('dashboard');
 
     Route::match(['GET', 'POST'], 'profile', function (Request $request) {
         $user = Auth::user();
@@ -118,18 +126,27 @@ Route::middleware(['auth'])->group(function () {
 
     })->name('profile');
 
+    Route::match(['GET', 'POST'], 'addpost', function (Request $request) {
+        if ($request->isMethod('POST')) {
+            #dd($request->all(), $request->file('image_path'));
 
+            $request->validate([
+                'image' => 'required|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+                'caption' => 'nullable|string|max:1000',
+            ]);
+
+            $path = $request->file('image')->store('all_images', 'public');
+
+            \App\Models\Image::create([
+                'user_id' => Auth::id(), 
+                'image_path' => $path,
+                'description' => $request->description,
+            ]);
+
+            return redirect()->route('dashboard')->with('success', 'Post creado con éxito');
+        }
+
+        return view('addpost');
+    })->name('addpost');
 });
 
-
-
-
-// Route::get('dashboard', function () {
-//     return '
-//         <h2>Hello ' . Auth::user()->name . '</h2>
-//         <form action="/logout" method="POST">
-//             ' . csrf_field() . '
-//             <button type="submit">Logout</button>
-//         </form>
-//     ';
-// })->middleware('auth');

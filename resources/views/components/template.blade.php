@@ -28,9 +28,9 @@
                 <a href="/" class="btn_logo"></a>
                 <nav class="gnb_menu">
                     <ul>
-                        <li><a href="#">Categoria A</a></li>
-                        <li><a href="#">Categoria B</a></li>
-                        <li><a href="#">??? . . . 🐦</a></li>
+                        <li><a href="{{ route('dashboard') }}">dashboard</a></li>
+                        <li><a href="{{ route('addpost') }}">+add post</a></li>
+                        <li><a href="#">About . . . 🐦</a></li>
                     </ul>
                 </nav>
             </div>

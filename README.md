@@ -247,17 +247,6 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
 3. para poner nuestros estilos css debemos ponerla en `vite.config.js` y `rm -rf public/build` y `npm run build`❌ 
  para que corra poner `npm run dev`
 
-falta:
-* controlador
-* 
-* 
-* home
-* dashboard
-* post
-* Cloudflare R2 
-
-* ✅ css, layouts, singup
-
 ## G. Clonar Repo template listo sing up creados
 1. para clonar e inicializar el proyecto ejecutamos los siguientes comandos
 ```bash
@@ -273,3 +262,52 @@ npm install
 npm run dev
 php artisan serve
 ```
+
+## H. realizamos el modelo de la BD
+1. diseñamos la base de datos y ejecutamos `add_images_and_other_tables`
+```mermaid
+graph LR
+    %% Configuración de Colores y Estilos
+    classDef users fill:#e1f5fe,stroke:#01579b,stroke-width:2px;
+    classDef images fill:#fff3e0,stroke:#e65100,stroke-width:2px;
+    classDef likes fill:#fce4ec,stroke:#880e4f,stroke-width:2px;
+    classDef comments fill:#f1f8e9,stroke:#33691e,stroke-width:2px;
+
+    %% Nodos con Info y HTML para Negritas
+    U["<b>USERS</b><hr/>+id: int<br/>+role: string<br/>+name: string<br/>+username: string<br/>+email: string<br/>+phone: string<br/>+password: string<br/>+avatar: string<br/>+created_at: dt<br/>+updated_at: dt<br/>+remember_token: string"]:::users
+
+    I["<b>IMAGES</b><hr/>+id: int<br/>+user_id: int<br/>+image_path: str<br/>+description: str<br/>+created_at: dt<br/>+updated_at: dt"]:::images
+
+    L["<b>LIKES</b><hr/>+id: int<br/>+user_id: int<br/>+image_id: int<br/>+created_at: dt<br/>+updated_at: dt"]:::likes
+
+    C["<b>COMMENTS</b><hr/>+id: int<br/>+user_id: int<br/>+image_id: int<br/>+content: text<br/>+created_at: dt<br/>+updated_at: dt"]:::comments
+
+    %% Relaciones
+    U --> I
+    U --> L
+    U --> C
+    I --> L
+    I --> C
+```
+
+2. creamos las clases `Image.php`, `Comment`, `Like`
+3. recordar poner `use Illuminate\Database\Eloquent\Attributes\Fillable;` para poner `#[Fillable(['user_id', 'image_path', 'description'])]` o poner `protected $fillable = ['user_id', 'image_path', 'description'];` si no se pone no se podra insertar datos a la BD.
+
+<img src="res/res4.png" width="100%" style="float: left; margin-right: 100px;">
+
+
+
+
+
+falta:
+* feed , delete post
+* post icon
+* like
+* add comment
+
+* controlador
+* delete profile
+* home
+* Cloudflare R2 
+
+* ✅ css, layouts, singup, dashboard, post
