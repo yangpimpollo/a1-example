@@ -5,7 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () { return view('welcome'); });
-Route::get('test', function () { return view('test'); });
+Route::get('test', function () { return view('test'); })->name('test');
 
 Route::get('login', function () { return view('login'); })->name('login');
 
@@ -30,6 +30,40 @@ Route::post('logout', function (Request $request) {
 })->name('logout');
 
 
+Route::match(['GET', 'POST'], 'singup', function (Request $request) {
+    if ($request->isMethod('POST')) {
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users,username', // Sin coma al final
+            'email'    => 'required|email|max:255|unique:users,email',    // Quitamos el $user->id
+            'phone'    => 'nullable|string|size:9|regex:/^[0-9]+$/',
+            'avatar'   => 'nullable|image|mimes:jpeg,png,jpg,webp,gif|max:2048',
+            'password' => 'required|confirmed', // 'required' es necesario en registro
+        ]);
+
+        // Manejo del avatar opcional
+        $path = null;
+        if ($request->hasFile('avatar')) {
+            $path = $request->file('avatar')->store('all_avatar', 'public');
+        }
+
+        $user = \App\Models\User::create([
+            'name'     => $request->name,
+            'username' => $request->username,
+            'email'    => $request->email,
+            'phone'    => $request->phone,
+            'password' => Hash::make($request->password),
+            'avatar'   => $path,
+        ]);
+
+        // Si quieres que entre directamente al registrarse, activa esto:
+        // Auth::login($user);
+
+        return redirect()->route('login')->with('success', 'Cuenta creada con éxito');
+    }
+
+    return view('singup');
+})->name('singup');
 
 
 

@@ -35,36 +35,46 @@
                 </nav>
             </div>
             <div class="header_right">
-                <!-- Botón Log Out -->
-                <form method="POST" action="{{ route('logout') }}" class="form_logout">
-                    @csrf
-                    <button type="submit" class="btn_logout">LOG OUT</button>
-                </form>
+                @auth
+                    <!-- Botón Log Out -->
+                    <form method="POST" action="{{ route('logout') }}" class="form_logout">
+                        @csrf
+                        <button type="submit" class="btn_logout">log out</button>
+                    </form>
 
-                <!-- Nombre de Usuario -->
-                <div class="user_name">
-                    {{ Auth::user()->name }}
-                </div>
+                    <!-- Nombre de Usuario -->
+                    <div class="user_name">
+                        {{ Auth::user()->name }}
+                    </div>
 
-                <!-- Avatar -->
-                <div class="user_avatar">
-                    <a href="{{ route('profile') }}">
-                        <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="Avatar">
-                    </a>
-                </div>
+                    <!-- Avatar -->
+                    <div class="user_avatar">
+                        <a href="{{ route('profile') }}">
+                            @if(Auth::user()->avatar)
+                                <img src="{{ Storage::url(Auth::user()->avatar) }}" alt="Avatar" >
+                            @else
+                                <div class="user_no_avatar">
+                                    {{ strtoupper(substr(Auth::user()->name, 0, 1)) }}
+                                </div>
+                            @endif
+                        </a>
+                    </div>
+                @endauth
+                @guest
+                    <div class="btn_login">
+                        <a href="{{ route('login') }}">login | sign up</a>
+                    </div>
+                @endguest
             </div>
         </div>
 
     </header>
 
     <main>
-        <div class="container">
+        <div class="main_container">
             @yield('content')
         </div>
-
     </main>
-
-    
 
     <footer class="main_footer">
         <div class="footer_container">

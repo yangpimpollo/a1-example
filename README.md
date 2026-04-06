@@ -243,17 +243,33 @@ echo "Marty -> ID: {$user2->id} | Phone: {$user2->phone}\n";
 2. añadimos en el enrutador
 <img src="res/res3.png" width="100%" style="float: left; margin-right: 100px;">
 
-## G. 
-1. para poner nuestros estilos css debemos ponerla en `vite.config.js` y `rm -rf public/build` y `npm run build`❌ 
+
+3. para poner nuestros estilos css debemos ponerla en `vite.config.js` y `rm -rf public/build` y `npm run build`❌ 
  para que corra poner `npm run dev`
 
 falta:
 * controlador
-* layouts
-* create account
+* 
+* 
 * home
 * dashboard
 * post
 * Cloudflare R2 
 
-* ✅ css
+* ✅ css, layouts, singup
+
+## G. Clonar Repo template listo sing up creados
+1. para clonar e inicializar el proyecto ejecutamos los siguientes comandos
+```bash
+cd Laravel_repo
+git clone git@github.com:yangpimpollo/a1-example.git
+cd a1-example
+composer install
+code .
+cp .env.example .env
+php artisan migrate --seed
+php artisan key:generate
+npm install
+npm run dev
+php artisan serve
+```
